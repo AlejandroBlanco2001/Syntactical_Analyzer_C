@@ -9,13 +9,15 @@ int number_errors = 0;
 /* regular definitions */
 D		[0-9]
 L		[a-zA-Z]
-AF      [a-zA-Z0-9\s]
+AF      [a-zA-Z0-9\s-]
+SPACE   " "
 EXPO    [Ee][\+\-]?([2-9]|([1-9]D+))
 EN      [\+\-]?[1-9]{D}*{EXPO}?
 DEC     \.{D}+
-RE      [\+\-]?([1-9]{D}*|0){DEC}{EXPO}?
+RE      [\+\-]?([1-9]{D}*|0){DEC}[lf]{EXPO}?
 CA      \"{AF}*\"
 CH      \'({D}|{L})\'
+VAR     {L}({D}|{L})*
 
 %%
 [ \t] {/* Just ignore whitespaces*/}
@@ -78,7 +80,8 @@ CH      \'({D}|{L})\'
 {CA}			   printf("Cte-cade= %s ", yytext);
 {RE}			   printf("Cte-real= %s ", yytext);
 {EN}			   printf("Cte-ent= %s ", yytext);
-.				   printf("", yytext);
+{VAR}			   printf("Id= %s ", yytext);
+.				   printf("");
 %%
 
 int yywrap(){}
