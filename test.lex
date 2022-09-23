@@ -2,22 +2,28 @@
 // Definitons, can be accessed inside yylex() and main()
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include "Node.h"
+
+Node *head_errors;
+Node *head_id;
 int number_id = 0;
 int number_errors = 0;
 %}
 
 /* regular definitions */
 D		[0-9]
-L		[a-zA-Z]
-AF      [a-zA-Z0-9\s-]
+L	    [a-zA-Z]
+SYM     [\~\!\#\$\%\^\&\*\(\)\+\,\.\/\|\\\'\-\=\<\>\?\{\}\[\]\:\"\;]
 SPACE   " "
 EXPO    [Ee][\+\-]?([2-9]|([1-9]D+))
 EN      [\+\-]?[1-9]{D}*{EXPO}?
 DEC     \.{D}+
 RE      [\+\-]?([1-9]{D}*|0){DEC}[lf]{EXPO}?
-CA      \"{AF}*\"
-CH      \'({D}|{L})\'
-VAR     {L}({D}|{L})*
+CA      \".*\"
+CH      \'.\'
+VAR     ({L}|_)({D}|{L}|\_)*
+WR_VAR  {D}+[{D}{L}]+
 
 %%
 [ \t] {/* Just ignore whitespaces*/}
@@ -80,11 +86,45 @@ VAR     {L}({D}|{L})*
 {CA}			   printf("Cte-cade= %s ", yytext);
 {RE}			   printf("Cte-real= %s ", yytext);
 {EN}			   printf("Cte-ent= %s ", yytext);
-{VAR}			   printf("Id= %s ", yytext);
+{VAR}			   { printf("Id= %s ", yytext); number_id = append(head_id,number_id); }
+{WR_VAR}		   number_errors = append(head_errors,number_errors);
 .				   printf("");
 %%
 
 int yywrap(){}
+
+int append(Node *head, int cantidad)
+{	
+	Node *temp = NULL;
+	temp = (Node*)malloc(sizeof(Node));
+	Node *p = head;
+	while(p->next != NULL)
+	{
+		if(strcmp(p->text,yytext) == 0)
+		{
+			return cantidad;
+		}
+		p = p->next;
+	}
+	if(strcmp(p->text,yytext) == 0)
+	{
+		return cantidad;
+	}
+	p->next = temp;
+	temp->next = NULL;
+	strcpy(temp->text,yytext);
+	return cantidad + 1;
+}
+
+void printList(Node *head){
+	Node *p = head->next;
+	while(p != NULL)
+	{
+		printf("Id= %s;  ", p->text);
+		p = p->next;
+	}
+	printf("\n");
+}
 
 int main(int argc, char* argv[])
 {
@@ -96,7 +136,12 @@ int main(int argc, char* argv[])
 			yyin = fp;
 		}
 	}
+	head_id = (Node*)malloc(sizeof(Node));
+    head_errors = (Node*)malloc(sizeof(Node));
 	yylex();
-	printf("Hay un total de %d identificadores ", number_id); 
+	printList(head_id);
+	printf("Hay un total de %d identificadores \n", number_id);
+	printList(head_errors);
+	printf("Hay un total de %d errores lexicos \n", number_errors);
 	return 0;
 }
