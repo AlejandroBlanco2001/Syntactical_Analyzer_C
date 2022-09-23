@@ -19,13 +19,14 @@ SPACE   " "
 EXPO    [Ee][\+\-]?([2-9]|([1-9]D+))
 EN      [\+\-]?[1-9]{D}*{EXPO}?
 DEC     \.{D}+
-RE      [\+\-]?([1-9]{D}*|0){DEC}[lf]{EXPO}?
+RE      [\+\-]?([1-9]{D}*|0){DEC}{EXPO}?[lf]?
 CA      \".*\"
 CH      \'.\'
 VAR     ({L}|_)({D}|{L}|\_)*
-WR_VAR  {D}+[{D}{L}]+
+WR_VAR  {D}+({D}|{L})+
 
 %%
+"\n"               printf("\n");
 [ \t] {/* Just ignore whitespaces*/}
 "main"          {  printf("MAIN \n"); }
 "auto"			{  printf("AUTO "); }
@@ -87,7 +88,7 @@ WR_VAR  {D}+[{D}{L}]+
 {RE}			   printf("Cte-real= %s ", yytext);
 {EN}			   printf("Cte-ent= %s ", yytext);
 {VAR}			   { printf("Id= %s ", yytext); number_id = append(head_id,number_id); }
-{WR_VAR}		   number_errors = append(head_errors,number_errors);
+{WR_VAR}		   { printf("Id= %s ", yytext); number_errors = append(head_errors,number_errors); }
 .				   printf("");
 %%
 
