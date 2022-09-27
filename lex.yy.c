@@ -878,7 +878,7 @@ case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
 #line 29 "test.lex"
-printf("\n");
+fprintf(yyout,"\n");
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
@@ -888,312 +888,312 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 31 "test.lex"
-{  printf("MAIN \n"); }
+{  fprintf(yyout,"MAIN \n"); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 32 "test.lex"
-{  printf("AUTO "); }
+{  fprintf(yyout,"AUTO "); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 33 "test.lex"
-{  printf("BREAK "); }
+{  fprintf(yyout,"BREAK "); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 34 "test.lex"
-{  printf("CASE "); }
+{  fprintf(yyout,"CASE "); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 35 "test.lex"
-{  printf("CHAR "); }
+{  fprintf(yyout,"CHAR "); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 36 "test.lex"
-{  printf("CONST "); }
+{  fprintf(yyout,"CONST "); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 37 "test.lex"
-{  printf("CONTINUE "); }
+{  fprintf(yyout,"CONTINUE "); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 38 "test.lex"
-{  printf("DEFAULT "); }
+{  fprintf(yyout,"DEFAULT "); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 39 "test.lex"
-{  printf("DO "); }
+{  fprintf(yyout,"DO "); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 40 "test.lex"
-{  printf("DOUBLE "); }
+{  fprintf(yyout,"DOUBLE "); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 41 "test.lex"
-{  printf("ELSE "); }
+{  fprintf(yyout,"ELSE "); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 42 "test.lex"
-{  printf("ENUM "); }
+{  fprintf(yyout,"ENUM "); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 43 "test.lex"
-{  printf("EXTERN "); }
+{  fprintf(yyout,"EXTERN "); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 44 "test.lex"
-{  printf("FLOAT "); }
+{  fprintf(yyout,"FLOAT "); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 45 "test.lex"
-{  printf("FOR "); }
+{  fprintf(yyout,"FOR "); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 46 "test.lex"
-{  printf("GOTO "); }
+{  fprintf(yyout,"GOTO "); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 47 "test.lex"
-{  printf("IF "); }
+{  fprintf(yyout,"IF "); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 48 "test.lex"
-{  printf("INT "); }
+{  fprintf(yyout,"INT "); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 49 "test.lex"
-{  printf("LONG "); }
+{  fprintf(yyout,"LONG "); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 50 "test.lex"
-{  printf("REGISTER "); }
+{  fprintf(yyout,"REGISTER "); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 51 "test.lex"
-{  printf("PRINTF "); }
+{  fprintf(yyout,"PRINTF "); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 52 "test.lex"
-{  printf("SCANF "); }
+{  fprintf(yyout,"SCANF "); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 53 "test.lex"
-{  printf("SHORT "); }
+{  fprintf(yyout,"SHORT "); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 54 "test.lex"
-{  printf("SIGNED "); }
+{  fprintf(yyout,"SIGNED "); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 55 "test.lex"
-{  printf("SIZEOF "); }
+{  fprintf(yyout,"SIZEOF "); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 56 "test.lex"
-{  printf("STATIC "); }
+{  fprintf(yyout,"STATIC "); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 57 "test.lex"
-{  printf("STRUCT "); }
+{  fprintf(yyout,"STRUCT "); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 58 "test.lex"
-{  printf("SWITCH "); }
+{  fprintf(yyout,"SWITCH "); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 59 "test.lex"
-{  printf("TYPEDEF "); }
+{  fprintf(yyout,"TYPEDEF "); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 60 "test.lex"
-{  printf("UNION "); }
+{  fprintf(yyout,"UNION "); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 61 "test.lex"
-{  printf("UNSIGNED "); }
+{  fprintf(yyout,"UNSIGNED "); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 62 "test.lex"
-{  printf("VOID "); }
+{  fprintf(yyout,"VOID "); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 63 "test.lex"
-{  printf("VOLATILE "); }
+{  fprintf(yyout,"VOLATILE "); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 64 "test.lex"
-{  printf("WHILE "); }
+{  fprintf(yyout,"WHILE "); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 65 "test.lex"
-printf("op-mult= %s", yytext);
+fprintf(yyout,"op-mult= %s", yytext);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 66 "test.lex"
-printf("op-sum= %s ", yytext);
+fprintf(yyout,"op-sum= %s ", yytext);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 67 "test.lex"
-printf("op-sust= %s ", yytext);
+fprintf(yyout,"op-sust= %s ", yytext);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 68 "test.lex"
-printf("op-div= %s ", yytext);
+fprintf(yyout,"op-div= %s ", yytext);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 69 "test.lex"
-printf("op-mod= %s ", yytext);
+fprintf(yyout,"op-mod= %s ", yytext);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 70 "test.lex"
-printf("op-asig= %s ", yytext);
+fprintf(yyout,"op-asig= %s ", yytext);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 71 "test.lex"
-printf("Punto-coma= %s ", yytext);
+fprintf(yyout,"Punto-coma= %s ", yytext);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 72 "test.lex"
-printf("Parent-a= %s ", yytext);
+fprintf(yyout,"Parent-a= %s ", yytext);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 73 "test.lex"
-printf("Parent-c= %s ", yytext);
+fprintf(yyout,"Parent-c= %s ", yytext);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 74 "test.lex"
-printf("coma= %s ", yytext);
+fprintf(yyout,"coma= %s ", yytext);
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 75 "test.lex"
-printf("Inicio= %s ", yytext);
+fprintf(yyout,"Inicio= %s ", yytext);
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 76 "test.lex"
-printf("Fin= %s ", yytext);
+fprintf(yyout,"Fin= %s ", yytext);
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 77 "test.lex"
-printf("op-or= %s ", yytext);
+fprintf(yyout,"op-or= %s ", yytext);
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 78 "test.lex"
-printf("op-neg= %s ", yytext);
+fprintf(yyout,"op-neg= %s ", yytext);
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 79 "test.lex"
-printf("op-maq= %s ", yytext);
+fprintf(yyout,"op-maq= %s ", yytext);
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 80 "test.lex"
-printf("op-may= %s ", yytext);
+fprintf(yyout,"op-may= %s ", yytext);
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 81 "test.lex"
-printf("op-meq= %s ", yytext);
+fprintf(yyout,"op-meq= %s ", yytext);
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 82 "test.lex"
-printf("op-men= %s ", yytext);
+fprintf(yyout,"op-men= %s ", yytext);
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 83 "test.lex"
-printf("op-dist= %s ", yytext);
+fprintf(yyout,"op-dist= %s ", yytext);
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 84 "test.lex"
-printf("op-and= %s ", yytext);
+fprintf(yyout,"op-and= %s ", yytext);
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 85 "test.lex"
-printf("op-igu= %s ", yytext);
+fprintf(yyout,"op-igu= %s ", yytext);
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 86 "test.lex"
-printf("Cte-cara= %s ", yytext);
+fprintf(yyout,"Cte-cara= %s ", yytext);
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 87 "test.lex"
-printf("Cte-cade= %s ", yytext);
+fprintf(yyout,"Cte-cade= %s ", yytext);
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 88 "test.lex"
-printf("Cte-real= %s ", yytext);
+fprintf(yyout,"Cte-real= %s ", yytext);
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 89 "test.lex"
-printf("Cte-ent= %s ", yytext);
+fprintf(yyout,"Cte-ent= %s ", yytext);
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
 #line 90 "test.lex"
-{ printf("Id= %s ", yytext); number_id = append(head_id,number_id); }
+{ fprintf(yyout,"Id= %s ", yytext); number_id = append(head_id,number_id); }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
 #line 91 "test.lex"
-{ printf("Id= %s ", yytext); number_errors = append(head_errors,number_errors); }
+{ fprintf(yyout,"Id= %s ", yytext); number_errors = append(head_errors,number_errors); }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
 #line 92 "test.lex"
-printf("");
+fprintf(yyout,"");
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
@@ -2233,14 +2233,14 @@ int append(Node *head, int cantidad)
 	return cantidad + 1;
 }
 
-void printList(Node *head){
+void printList(Node *head, FILE *f){
 	Node *p = head->next;
 	while(p != NULL)
 	{
-		printf("Id= %s;  ", p->text);
+		fprintf(f,"Id= %s;  ", p->text);
 		p = p->next;
 	}
-	printf("\n");
+	fprintf(f,"\n");
 }
 
 int main(int argc, char* argv[])
@@ -2253,13 +2253,16 @@ int main(int argc, char* argv[])
 			yyin = fp;
 		}
 	}
+	FILE *fp2 = fopen("salida.txt","w");
+	yyout = fp2;
 	head_id = (Node*)malloc(sizeof(Node));
     head_errors = (Node*)malloc(sizeof(Node));
 	yylex();
-	printList(head_id);
-	printf("Hay un total de %d identificadores \n", number_id);
-	printList(head_errors);
-	printf("Hay un total de %d errores lexicos \n", number_errors);
+	fprintf(fp2,"Hay un total de %d identificadores \n", number_id);
+	printList(head_id,fp2);
+	fprintf(fp2,"Hay un total de %d errores lexicos \n", number_errors);
+	printList(head_errors,fp2);
+	fclose(fp2);
 	return 0;
 }
 

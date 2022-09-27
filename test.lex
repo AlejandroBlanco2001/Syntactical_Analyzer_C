@@ -26,70 +26,70 @@ VAR     ({L}|_)({D}|{L}|\_)*
 WR_VAR  {D}+({D}|{L})+
 
 %%
-"\n"               printf("\n");
+"\n"               fprintf(yyout,"\n");
 [ \t] {/* Just ignore whitespaces*/}
-"main"          {  printf("MAIN \n"); }
-"auto"			{  printf("AUTO "); }
-"break"			{  printf("BREAK "); }
-"case"			{  printf("CASE "); }
-"char"			{  printf("CHAR "); }
-"const"			{  printf("CONST "); }
-"continue"		{  printf("CONTINUE "); }
-"default"		{  printf("DEFAULT "); }
-"do"			{  printf("DO "); }
-"double"		{  printf("DOUBLE "); }
-"else"			{  printf("ELSE "); }
-"enum"			{  printf("ENUM "); }
-"extern"		{  printf("EXTERN "); }
-"float"			{  printf("FLOAT "); }
-"for"			{  printf("FOR "); }
-"goto"			{  printf("GOTO "); }
-"if"			{  printf("IF "); }
-"int"			{  printf("INT "); }
-"long"			{  printf("LONG "); }
-"register"		{  printf("REGISTER "); }
-"printf"		{  printf("PRINTF "); }
-"scanf"         {  printf("SCANF "); }
-"short"			{  printf("SHORT "); }
-"signed"		{  printf("SIGNED "); }
-"sizeof"		{  printf("SIZEOF "); }
-"static"		{  printf("STATIC "); }
-"struct"		{  printf("STRUCT "); }
-"switch"		{  printf("SWITCH "); }
-"typedef"		{  printf("TYPEDEF "); }
-"union"			{  printf("UNION "); }
-"unsigned"		{  printf("UNSIGNED "); }
-"void"			{  printf("VOID "); }
-"volatile"		{  printf("VOLATILE "); }
-"while"			{  printf("WHILE "); }
-"*"				   printf("op-mult= %s", yytext);
-"+"				   printf("op-sum= %s ", yytext);
-"-"				   printf("op-sust= %s ", yytext);
-"/"				   printf("op-div= %s ", yytext);
-"%"				   printf("op-mod= %s ", yytext);
-"="				   printf("op-asig= %s ", yytext);
-";"				   printf("Punto-coma= %s ", yytext);
-"("				   printf("Parent-a= %s ", yytext);
-")"				   printf("Parent-c= %s ", yytext);
-","                printf("coma= %s ", yytext);
-"{"                printf("Inicio= %s ", yytext);
-"}"                printf("Fin= %s ", yytext);
-"|"                printf("op-or= %s ", yytext);
-"!"                printf("op-neg= %s ", yytext);
-">="               printf("op-maq= %s ", yytext);
-">"                printf("op-may= %s ", yytext);
-"<="			   printf("op-meq= %s ", yytext);
-"<"                printf("op-men= %s ", yytext);
-"!="               printf("op-dist= %s ", yytext);
-"&&"               printf("op-and= %s ", yytext);
-"=="			   printf("op-igu= %s ", yytext);
-{CH}			   printf("Cte-cara= %s ", yytext);
-{CA}			   printf("Cte-cade= %s ", yytext);
-{RE}			   printf("Cte-real= %s ", yytext);
-{EN}			   printf("Cte-ent= %s ", yytext);
-{VAR}			   { printf("Id= %s ", yytext); number_id = append(head_id,number_id); }
-{WR_VAR}		   { printf("Id= %s ", yytext); number_errors = append(head_errors,number_errors); }
-.				   printf("");
+"main"          {  fprintf(yyout,"MAIN \n"); }
+"auto"			{  fprintf(yyout,"AUTO "); }
+"break"			{  fprintf(yyout,"BREAK "); }
+"case"			{  fprintf(yyout,"CASE "); }
+"char"			{  fprintf(yyout,"CHAR "); }
+"const"			{  fprintf(yyout,"CONST "); }
+"continue"		{  fprintf(yyout,"CONTINUE "); }
+"default"		{  fprintf(yyout,"DEFAULT "); }
+"do"			{  fprintf(yyout,"DO "); }
+"double"		{  fprintf(yyout,"DOUBLE "); }
+"else"			{  fprintf(yyout,"ELSE "); }
+"enum"			{  fprintf(yyout,"ENUM "); }
+"extern"		{  fprintf(yyout,"EXTERN "); }
+"float"			{  fprintf(yyout,"FLOAT "); }
+"for"			{  fprintf(yyout,"FOR "); }
+"goto"			{  fprintf(yyout,"GOTO "); }
+"if"			{  fprintf(yyout,"IF "); }
+"int"			{  fprintf(yyout,"INT "); }
+"long"			{  fprintf(yyout,"LONG "); }
+"register"		{  fprintf(yyout,"REGISTER "); }
+"printf"		{  fprintf(yyout,"PRINTF "); }
+"scanf"         {  fprintf(yyout,"SCANF "); }
+"short"			{  fprintf(yyout,"SHORT "); }
+"signed"		{  fprintf(yyout,"SIGNED "); }
+"sizeof"		{  fprintf(yyout,"SIZEOF "); }
+"static"		{  fprintf(yyout,"STATIC "); }
+"struct"		{  fprintf(yyout,"STRUCT "); }
+"switch"		{  fprintf(yyout,"SWITCH "); }
+"typedef"		{  fprintf(yyout,"TYPEDEF "); }
+"union"			{  fprintf(yyout,"UNION "); }
+"unsigned"		{  fprintf(yyout,"UNSIGNED "); }
+"void"			{  fprintf(yyout,"VOID "); }
+"volatile"		{  fprintf(yyout,"VOLATILE "); }
+"while"			{  fprintf(yyout,"WHILE "); }
+"*"				   fprintf(yyout,"op-mult= %s", yytext);
+"+"				   fprintf(yyout,"op-sum= %s ", yytext);
+"-"				   fprintf(yyout,"op-sust= %s ", yytext);
+"/"				   fprintf(yyout,"op-div= %s ", yytext);
+"%"				   fprintf(yyout,"op-mod= %s ", yytext);
+"="				   fprintf(yyout,"op-asig= %s ", yytext);
+";"				   fprintf(yyout,"Punto-coma= %s ", yytext);
+"("				   fprintf(yyout,"Parent-a= %s ", yytext);
+")"				   fprintf(yyout,"Parent-c= %s ", yytext);
+","                fprintf(yyout,"coma= %s ", yytext);
+"{"                fprintf(yyout,"Inicio= %s ", yytext);
+"}"                fprintf(yyout,"Fin= %s ", yytext);
+"|"                fprintf(yyout,"op-or= %s ", yytext);
+"!"                fprintf(yyout,"op-neg= %s ", yytext);
+">="               fprintf(yyout,"op-maq= %s ", yytext);
+">"                fprintf(yyout,"op-may= %s ", yytext);
+"<="			   fprintf(yyout,"op-meq= %s ", yytext);
+"<"                fprintf(yyout,"op-men= %s ", yytext);
+"!="               fprintf(yyout,"op-dist= %s ", yytext);
+"&&"               fprintf(yyout,"op-and= %s ", yytext);
+"=="			   fprintf(yyout,"op-igu= %s ", yytext);
+{CH}			   fprintf(yyout,"Cte-cara= %s ", yytext);
+{CA}			   fprintf(yyout,"Cte-cade= %s ", yytext);
+{RE}			   fprintf(yyout,"Cte-real= %s ", yytext);
+{EN}			   fprintf(yyout,"Cte-ent= %s ", yytext);
+{VAR}			   { fprintf(yyout,"Id= %s ", yytext); number_id = append(head_id,number_id); }
+{WR_VAR}		   { fprintf(yyout,"Id= %s ", yytext); number_errors = append(head_errors,number_errors); }
+.				   fprintf(yyout,"");
 %%
 
 int yywrap(){}
@@ -117,14 +117,14 @@ int append(Node *head, int cantidad)
 	return cantidad + 1;
 }
 
-void printList(Node *head){
+void printList(Node *head, FILE *f){
 	Node *p = head->next;
 	while(p != NULL)
 	{
-		printf("Id= %s;  ", p->text);
+		fprintf(f,"Id= %s;  ", p->text);
 		p = p->next;
 	}
-	printf("\n");
+	fprintf(f,"\n");
 }
 
 int main(int argc, char* argv[])
@@ -137,12 +137,15 @@ int main(int argc, char* argv[])
 			yyin = fp;
 		}
 	}
+	FILE *fp2 = fopen("salida.txt","w");
+	yyout = fp2;
 	head_id = (Node*)malloc(sizeof(Node));
     head_errors = (Node*)malloc(sizeof(Node));
 	yylex();
-	printList(head_id);
-	printf("Hay un total de %d identificadores \n", number_id);
-	printList(head_errors);
-	printf("Hay un total de %d errores lexicos \n", number_errors);
+	fprintf(fp2,"Hay un total de %d identificadores \n", number_id);
+	printList(head_id,fp2);
+	fprintf(fp2,"Hay un total de %d errores lexicos \n", number_errors);
+	printList(head_errors,fp2);
+	fclose(fp2);
 	return 0;
 }
