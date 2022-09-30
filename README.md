@@ -12,4 +12,4 @@ Al hacerlo, se analizará el texto dentro del archivo `PRUEBA.c` y se generará 
 
 Opción 1: Incluir el nuevo archivo a leer y reemplazar el nombre `PRUEBA.c` por el nombre del nuevo archivo en la cuarta linea
 del archivo `test_lex.sh`
-Opción 2: Modificar el contenido del archivo `PRUEBA.c` usando el comando $nano `PRUEBA.c`
+Opción 2: Modificar el contenido del archivo `PRUEBA.c` usando el comando `$nano PRUEBA.c`
