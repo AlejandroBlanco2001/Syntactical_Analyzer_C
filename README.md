@@ -6,7 +6,7 @@ Syntactic Analyzer for C in C made with Lex
 Dirigirse al directorio del proyecto y correr el comando `sh test_lex.sh`.
 Al hacerlo, se analizará el texto dentro del archivo `PRUEBA.c` y se generará el archivo `salida.txt` con los contenidos del análisis.
 
-### El archivo a analizar no debe necesariamente tener como extensión `.c`, sino también puede ser un archivo de texto de otro tipo, por ejemplo, `.txt`
+#### El archivo a analizar no debe necesariamente tener como extensión `.c`, sino también puede ser un archivo de texto de otro tipo, por ejemplo, `.txt`
 
 ## Como cambiar el codigo que se va a analizar
 
