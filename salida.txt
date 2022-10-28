@@ -1,18 +1,25 @@
 MAIN 
 Parent-a= ( VOID Parent-c= ) 
-Inicio= { INT Id= i Punto-coma= ; 
+Inicio= { 
+
+INT Id= i Punto-coma= ; 
 INT Id= j Punto-coma= ; 
 CHAR Id= c Punto-coma= ; 
 CHAR Id= cadena 
+
+FLOAT Error= 3g Punto-coma= ; 
+CHAR Error= abc$$$ Id= x Punto-coma= ; 
+INT Cte-ent= 2 coma= , Id= j Punto-coma= ; 
 FLOAT Id= z Punto-coma= ; 
 Id= z op-asig= = Cte-real= 14.9e-8 Punto-coma= ; 
 Id= z op-asig= = Cte-real= 12.9 Punto-coma= ; 
+
 Id= cadena op-asig= = Cte-cade= "Hola" Punto-coma= ; 
 SCANF Parent-a= ( Cte-cade= "%d" coma= , Id= i Parent-c= ) Punto-coma= ; 
 Id= i op-asig= = Id= i op-mult= *Cte-ent= 2 Punto-coma= ; 
 PRINTF Parent-a= ( Cte-cade= "El doble es %d" coma= , Id= i Parent-c= ) Punto-coma= ; 
 Fin= } 
-Hay un total de 5 identificadores 
-Id= i;  Id= j;  Id= c;  Id= cadena;  Id= z;  
-Hay un total de 0 errores lexicos 
-
+Hay un total de 6 identificadores 
+Id-1= i;  Id-2= j;  Id-3= c;  Id-4= cadena;  Id-5= x;  Id-6= z;  
+Hay un total de 2 errores lexicos 
+Error-1= 3g;  Error-2= abc$$$;  
