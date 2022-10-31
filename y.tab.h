@@ -117,7 +117,11 @@ extern int yydebug;
     INTEGER_NUMBER = 318,          /* INTEGER_NUMBER  */
     ID = 319,                      /* ID  */
     TRUE = 320,                    /* TRUE  */
-    FALSE = 321                    /* FALSE  */
+    FALSE = 321,                   /* FALSE  */
+    OP_INCRE_SUM = 322,            /* OP_INCRE_SUM  */
+    OP_INCRE_MULT = 323,           /* OP_INCRE_MULT  */
+    OP_INCRE_DIV = 324,            /* OP_INCRE_DIV  */
+    OP_INCRE_SUST = 325            /* OP_INCRE_SUST  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -190,6 +194,10 @@ extern int yydebug;
 #define ID 319
 #define TRUE 320
 #define FALSE 321
+#define OP_INCRE_SUM 322
+#define OP_INCRE_MULT 323
+#define OP_INCRE_DIV 324
+#define OP_INCRE_SUST 325
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

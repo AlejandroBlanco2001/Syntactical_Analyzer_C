@@ -22,7 +22,7 @@ VAR     ({L}|_)({D}|{L}|_)*
 WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*)
 
 %%
-[\n]			{countn++;} // Count the number of lines 
+[\n]			{ yylineno = yylineno + 1;} // Count the number of lines 
 "main"          {return(MAIN);}
 "auto"			{return(AUTO);}
 "break"			{return(BREAK);}
@@ -74,6 +74,10 @@ WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*
 "}"             {return(FIN);}
 "|"             {return(OP_O);}
 "!"             {return(OP_NO);}
+"+-"            {return(OP_INCRE_SUM);}
+"*-"            {return(OP_INCRE_MULT);}
+"-="            {return(OP_INCRE_SUST);}
+"/="            {return(OP_INCRE_DIV);}
 ">="            {return(OP_MAYOR_IGUAL);}
 ">"             {return(OP_MAYOR);}
 "<="			{return(OP_MENOR_IGUAL);}
