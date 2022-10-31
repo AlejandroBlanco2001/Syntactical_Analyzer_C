@@ -74,8 +74,8 @@ WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*
 "}"             {return(FIN);}
 "|"             {return(OP_O);}
 "!"             {return(OP_NO);}
-"+-"            {return(OP_INCRE_SUM);}
-"*-"            {return(OP_INCRE_MULT);}
+"+="            {return(OP_INCRE_SUM);}
+"*="            {return(OP_INCRE_MULT);}
 "-="            {return(OP_INCRE_SUST);}
 "/="            {return(OP_INCRE_DIV);}
 ">="            {return(OP_MAYOR_IGUAL);}
