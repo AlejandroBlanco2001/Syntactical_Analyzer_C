@@ -21,7 +21,6 @@ Terminals unused in grammar
     UNION
     UNSIGNED
     VOLATILE
-    OP_MOD
     OP_NO
 
 
@@ -29,8 +28,9 @@ State 0 conflicts: 1 shift/reduce
 State 3 conflicts: 5 shift/reduce
 State 9 conflicts: 1 shift/reduce, 5 reduce/reduce
 State 49 conflicts: 13 shift/reduce
-State 107 conflicts: 6 shift/reduce
-State 108 conflicts: 6 shift/reduce
+State 68 conflicts: 2 reduce/reduce
+State 95 conflicts: 2 reduce/reduce
+State 106 conflicts: 5 shift/reduce
 
 
 Grammar
@@ -45,13 +45,13 @@ Grammar
 
     5 body: IF PARENT_A condition PARENT_C INICIO body FIN else
     6     | FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
-    7     | WHILE PARENT_A condition PARENT_C INICIO body FIN
+    7     | WHILE PARENT_A condition PARENT_C INICIO body FIN PUNTO_COMA
     8     | DO INICIO body FIN WHILE PARENT_A condition PARENT_C PUNTO_COMA
     9     | statement PUNTO_COMA
    10     | body body
-   11     | PRINTF PARENT_A STRING PARENT_C PUNTO_COMA
-   12     | PRINTF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
-   13     | SCANF PARENT_A STRING COMA '&' ID PARENT_C PUNTO_COMA
+   11     | PRINTF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
+   12     | PRINTF PARENT_A STRING PARENT_C PUNTO_COMA
+   13     | SCANF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
 
    14 else: ELSE INICIO body FIN
    15     | ε
@@ -62,64 +62,66 @@ Grammar
    19         | VOID
 
    20 condition: value relational value
-   21          | TRUE
-   22          | FALSE
+   21          | value logic value
+   22          | TRUE
+   23          | FALSE
 
-   23 statement: datatype ID init PUNTO_COMA
-   24          | ID asignators value PUNTO_COMA
-   25          | ID relational expression PUNTO_COMA
-   26          | ID UNARY PUNTO_COMA
-   27          | UNARY ID PUNTO_COMA
-   28          | error
+   24 statement: datatype ID init
+   25          | ID asignators value
+   26          | ID asignators expression
+   27          | ID relational expression
+   28          | ID UNARY
+   29          | UNARY ID
+   30          | error
 
-   29 init: OP_ASIG value
-   30     | COMA ID init
-   31     | ε
+   31 init: OP_ASIG value
+   32     | OP_ASIG expression
+   33     | COMA ID init
+   34     | ε
 
-   32 asignators: OP_ASIG
-   33           | OP_INCRE_SUM
-   34           | OP_INCRE_SUST
-   35           | OP_INCRE_DIV
-   36           | OP_INCRE_MULT
+   35 asignators: OP_ASIG
+   36           | OP_INCRE_SUM
+   37           | OP_INCRE_SUST
+   38           | OP_INCRE_DIV
+   39           | OP_INCRE_MULT
 
-   37 expression: expression arithmetics expression
-   38           | expression logic expression
-   39           | value
+   40 expression: expression arithmetics expression
+   41           | value
 
-   40 arithmetics: OP_SUMA
-   41            | OP_SUS
-   42            | OP_DIV
-   43            | OP_MULT
+   42 arithmetics: OP_SUMA
+   43            | OP_SUS
+   44            | OP_DIV
+   45            | OP_MOD
+   46            | OP_MULT
 
-   44 relational: OP_IGUAL
-   45           | OP_MAYOR
-   46           | OP_MAYOR_IGUAL
-   47           | OP_MENOR
-   48           | OP_MENOR_IGUAL
-   49           | OP_DIST
+   47 relational: OP_IGUAL
+   48           | OP_MAYOR
+   49           | OP_MAYOR_IGUAL
+   50           | OP_MENOR
+   51           | OP_MENOR_IGUAL
+   52           | OP_DIST
 
-   50 value: CHARACTER
-   51      | FLOAT_NUMBER
-   52      | INTEGER_NUMBER
-   53      | STRING
-   54      | ID
+   53 value: CHARACTER
+   54      | FLOAT_NUMBER
+   55      | INTEGER
+   56      | STRING
+   57      | ID
 
-   55 logic: OP_O
-   56      | OP_Y
+   58 logic: OP_O
+   59      | OP_Y
 
-   57 return: RETURN value PUNTO_COMA
-   58       | ε
+   60 return: RETURN value PUNTO_COMA
+   61       | ε
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '&' (38) 13
-    error (256) 28
+    error (256) 30
     MAIN (258) 1
     INCLUDE (259) 3
-    UNARY (260) 26 27
-    RETURN (261) 57
+    UNARY (260) 28 29
+    RETURN (261) 60
     AUTO (262)
     BREAK (263)
     CASE (264)
@@ -152,88 +154,88 @@ Terminals, with rules where they appear
     VOID (291) 19
     VOLATILE (292)
     WHILE (293) 7 8
-    OP_MULT (294) 43
-    OP_SUMA (295) 40
-    OP_SUS (296) 41
-    OP_DIV (297) 42
-    OP_MOD (298)
-    OP_ASIG (299) 29 32
-    PUNTO_COMA (300) 6 8 9 11 12 13 23 24 25 26 27 57
+    OP_MULT (294) 46
+    OP_SUMA (295) 42
+    OP_SUS (296) 43
+    OP_DIV (297) 44
+    OP_MOD (298) 45
+    OP_ASIG (299) 31 32 35
+    PUNTO_COMA (300) 6 7 8 9 11 12 13 60
     PARENT_A (301) 1 5 6 7 8 11 12 13
     PARENT_C (302) 1 5 6 7 8 11 12 13
-    COMA (303) 12 13 30
+    COMA (303) 11 13 33
     INICIO (304) 1 5 6 7 8 14
     FIN (305) 1 5 6 7 8 14
-    OP_O (306) 55
+    OP_O (306) 58
     OP_NO (307)
-    OP_MAYOR_IGUAL (308) 46
-    OP_MAYOR (309) 45
-    OP_MENOR_IGUAL (310) 48
-    OP_MENOR (311) 47
-    OP_DIST (312) 49
-    OP_Y (313) 56
-    OP_IGUAL (314) 44
-    CHARACTER (315) 50
-    STRING (316) 11 12 13 53
-    FLOAT_NUMBER (317) 51
-    INTEGER_NUMBER (318) 52
-    ID (319) 12 13 23 24 25 26 27 30 54
-    TRUE (320) 21
-    FALSE (321) 22
-    OP_INCRE_SUM (322) 33
-    OP_INCRE_MULT (323) 36
-    OP_INCRE_DIV (324) 35
-    OP_INCRE_SUST (325) 34
+    OP_MAYOR_IGUAL (308) 49
+    OP_MAYOR (309) 48
+    OP_MENOR_IGUAL (310) 51
+    OP_MENOR (311) 50
+    OP_DIST (312) 52
+    OP_Y (313) 59
+    OP_IGUAL (314) 47
+    CHARACTER (315) 53
+    STRING (316) 11 12 13 56
+    FLOAT_NUMBER (317) 54
+    INTEGER (318) 55
+    ID (319) 11 13 24 25 26 27 28 29 33 57
+    TRUE (320) 22
+    FALSE (321) 23
+    OP_INCRE_SUM (322) 36
+    OP_INCRE_MULT (323) 39
+    OP_INCRE_DIV (324) 38
+    OP_INCRE_SUST (325) 37
 
 
 Nonterminals, with rules where they appear
 
-    $accept (72)
+    $accept (71)
         on left: 0
-    program (73)
+    program (72)
         on left: 1
         on right: 0
-    headers (74)
+    headers (73)
         on left: 2 3 4
         on right: 1 2
-    body (75)
+    body (74)
         on left: 5 6 7 8 9 10 11 12 13
         on right: 1 5 6 7 8 10 14
-    else (76)
+    else (75)
         on left: 14 15
         on right: 5
-    datatype (77)
+    datatype (76)
         on left: 16 17 18 19
-        on right: 1 23
-    condition (78)
-        on left: 20 21 22
+        on right: 1 24
+    condition (77)
+        on left: 20 21 22 23
         on right: 5 6 7 8
-    statement (79)
-        on left: 23 24 25 26 27 28
+    statement (78)
+        on left: 24 25 26 27 28 29 30
         on right: 6 9
-    init (80)
-        on left: 29 30 31
-        on right: 23 30
-    asignators (81)
-        on left: 32 33 34 35 36
-        on right: 24
-    expression (82)
-        on left: 37 38 39
-        on right: 25 37 38
-    arithmetics (83)
-        on left: 40 41 42 43
-        on right: 37
-    relational (84)
-        on left: 44 45 46 47 48 49
-        on right: 20 25
-    value (85)
-        on left: 50 51 52 53 54
-        on right: 20 24 29 39 57
-    logic (86)
-        on left: 55 56
-        on right: 38
-    return (87)
-        on left: 57 58
+    init (79)
+        on left: 31 32 33 34
+        on right: 24 33
+    asignators (80)
+        on left: 35 36 37 38 39
+        on right: 25 26
+    expression (81)
+        on left: 40 41
+        on right: 26 27 32 40
+    arithmetics (82)
+        on left: 42 43 44 45 46
+        on right: 40
+    relational (83)
+        on left: 47 48 49 50 51 52
+        on right: 20 27
+    value (84)
+        on left: 53 54 55 56 57
+        on right: 20 21 25 31 41 60
+    logic (85)
+        on left: 58 59
+        on right: 21
+    return (86)
+        on left: 60 61
         on right: 1
 
 
@@ -395,14 +397,14 @@ State 14
 
 State 15
 
-   28 statement: error •
+   30 statement: error •
 
-    $default  reduce using rule 28 (statement)
+    $default  reduce using rule 30 (statement)
 
 
 State 16
 
-   27 statement: UNARY • ID PUNTO_COMA
+   29 statement: UNARY • ID
 
     ID  shift, and go to state 27
 
@@ -430,31 +432,32 @@ State 19
 
 State 20
 
-   11 body: PRINTF • PARENT_A STRING PARENT_C PUNTO_COMA
-   12     | PRINTF • PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
+   11 body: PRINTF • PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
+   12     | PRINTF • PARENT_A STRING PARENT_C PUNTO_COMA
 
     PARENT_A  shift, and go to state 31
 
 
 State 21
 
-   13 body: SCANF • PARENT_A STRING COMA '&' ID PARENT_C PUNTO_COMA
+   13 body: SCANF • PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
 
     PARENT_A  shift, and go to state 32
 
 
 State 22
 
-    7 body: WHILE • PARENT_A condition PARENT_C INICIO body FIN
+    7 body: WHILE • PARENT_A condition PARENT_C INICIO body FIN PUNTO_COMA
 
     PARENT_A  shift, and go to state 33
 
 
 State 23
 
-   24 statement: ID • asignators value PUNTO_COMA
-   25          | ID • relational expression PUNTO_COMA
-   26          | ID • UNARY PUNTO_COMA
+   25 statement: ID • asignators value
+   26          | ID • asignators expression
+   27          | ID • relational expression
+   28          | ID • UNARY
 
     UNARY           shift, and go to state 34
     OP_ASIG         shift, and go to state 35
@@ -493,7 +496,7 @@ State 24
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    FIN  reduce using rule 58 (return)
+    FIN  reduce using rule 61 (return)
 
     body       go to state 49
     datatype   go to state 25
@@ -503,7 +506,7 @@ State 24
 
 State 25
 
-   23 statement: datatype • ID init PUNTO_COMA
+   24 statement: datatype • ID init
 
     ID  shift, and go to state 51
 
@@ -517,9 +520,9 @@ State 26
 
 State 27
 
-   27 statement: UNARY ID • PUNTO_COMA
+   29 statement: UNARY ID •
 
-    PUNTO_COMA  shift, and go to state 53
+    $default  reduce using rule 29 (statement)
 
 
 State 28
@@ -540,7 +543,7 @@ State 28
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    body       go to state 54
+    body       go to state 53
     datatype   go to state 25
     statement  go to state 26
 
@@ -558,178 +561,180 @@ State 29
     ID     shift, and go to state 23
 
     datatype   go to state 25
-    statement  go to state 55
+    statement  go to state 54
 
 
 State 30
 
     5 body: IF PARENT_A • condition PARENT_C INICIO body FIN else
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-    TRUE            shift, and go to state 61
-    FALSE           shift, and go to state 62
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+    TRUE          shift, and go to state 60
+    FALSE         shift, and go to state 61
 
-    condition  go to state 63
-    value      go to state 64
+    condition  go to state 62
+    value      go to state 63
 
 
 State 31
 
-   11 body: PRINTF PARENT_A • STRING PARENT_C PUNTO_COMA
-   12     | PRINTF PARENT_A • STRING COMA ID PARENT_C PUNTO_COMA
+   11 body: PRINTF PARENT_A • STRING COMA ID PARENT_C PUNTO_COMA
+   12     | PRINTF PARENT_A • STRING PARENT_C PUNTO_COMA
 
-    STRING  shift, and go to state 65
+    STRING  shift, and go to state 64
 
 
 State 32
 
-   13 body: SCANF PARENT_A • STRING COMA '&' ID PARENT_C PUNTO_COMA
+   13 body: SCANF PARENT_A • STRING COMA ID PARENT_C PUNTO_COMA
 
-    STRING  shift, and go to state 66
+    STRING  shift, and go to state 65
 
 
 State 33
 
-    7 body: WHILE PARENT_A • condition PARENT_C INICIO body FIN
+    7 body: WHILE PARENT_A • condition PARENT_C INICIO body FIN PUNTO_COMA
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-    TRUE            shift, and go to state 61
-    FALSE           shift, and go to state 62
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+    TRUE          shift, and go to state 60
+    FALSE         shift, and go to state 61
 
-    condition  go to state 67
-    value      go to state 64
+    condition  go to state 66
+    value      go to state 63
 
 
 State 34
 
-   26 statement: ID UNARY • PUNTO_COMA
+   28 statement: ID UNARY •
 
-    PUNTO_COMA  shift, and go to state 68
+    $default  reduce using rule 28 (statement)
 
 
 State 35
 
-   32 asignators: OP_ASIG •
-
-    $default  reduce using rule 32 (asignators)
-
-
-State 36
-
-   46 relational: OP_MAYOR_IGUAL •
-
-    $default  reduce using rule 46 (relational)
-
-
-State 37
-
-   45 relational: OP_MAYOR •
-
-    $default  reduce using rule 45 (relational)
-
-
-State 38
-
-   48 relational: OP_MENOR_IGUAL •
-
-    $default  reduce using rule 48 (relational)
-
-
-State 39
-
-   47 relational: OP_MENOR •
-
-    $default  reduce using rule 47 (relational)
-
-
-State 40
-
-   49 relational: OP_DIST •
-
-    $default  reduce using rule 49 (relational)
-
-
-State 41
-
-   44 relational: OP_IGUAL •
-
-    $default  reduce using rule 44 (relational)
-
-
-State 42
-
-   33 asignators: OP_INCRE_SUM •
-
-    $default  reduce using rule 33 (asignators)
-
-
-State 43
-
-   36 asignators: OP_INCRE_MULT •
-
-    $default  reduce using rule 36 (asignators)
-
-
-State 44
-
-   35 asignators: OP_INCRE_DIV •
+   35 asignators: OP_ASIG •
 
     $default  reduce using rule 35 (asignators)
 
 
+State 36
+
+   49 relational: OP_MAYOR_IGUAL •
+
+    $default  reduce using rule 49 (relational)
+
+
+State 37
+
+   48 relational: OP_MAYOR •
+
+    $default  reduce using rule 48 (relational)
+
+
+State 38
+
+   51 relational: OP_MENOR_IGUAL •
+
+    $default  reduce using rule 51 (relational)
+
+
+State 39
+
+   50 relational: OP_MENOR •
+
+    $default  reduce using rule 50 (relational)
+
+
+State 40
+
+   52 relational: OP_DIST •
+
+    $default  reduce using rule 52 (relational)
+
+
+State 41
+
+   47 relational: OP_IGUAL •
+
+    $default  reduce using rule 47 (relational)
+
+
+State 42
+
+   36 asignators: OP_INCRE_SUM •
+
+    $default  reduce using rule 36 (asignators)
+
+
+State 43
+
+   39 asignators: OP_INCRE_MULT •
+
+    $default  reduce using rule 39 (asignators)
+
+
+State 44
+
+   38 asignators: OP_INCRE_DIV •
+
+    $default  reduce using rule 38 (asignators)
+
+
 State 45
 
-   34 asignators: OP_INCRE_SUST •
+   37 asignators: OP_INCRE_SUST •
 
-    $default  reduce using rule 34 (asignators)
+    $default  reduce using rule 37 (asignators)
 
 
 State 46
 
-   24 statement: ID asignators • value PUNTO_COMA
+   25 statement: ID asignators • value
+   26          | ID asignators • expression
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
 
-    value  go to state 69
+    expression  go to state 67
+    value       go to state 68
 
 
 State 47
 
-   25 statement: ID relational • expression PUNTO_COMA
+   27 statement: ID relational • expression
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
 
-    expression  go to state 70
-    value       go to state 71
+    expression  go to state 69
+    value       go to state 70
 
 
 State 48
 
-   57 return: RETURN • value PUNTO_COMA
+   60 return: RETURN • value PUNTO_COMA
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
 
-    value  go to state 72
+    value  go to state 71
 
 
 State 49
@@ -776,19 +781,19 @@ State 50
 
     1 program: headers datatype MAIN PARENT_A PARENT_C INICIO body return • FIN
 
-    FIN  shift, and go to state 73
+    FIN  shift, and go to state 72
 
 
 State 51
 
-   23 statement: datatype ID • init PUNTO_COMA
+   24 statement: datatype ID • init
 
-    OP_ASIG  shift, and go to state 74
-    COMA     shift, and go to state 75
+    OP_ASIG  shift, and go to state 73
+    COMA     shift, and go to state 74
 
-    $default  reduce using rule 31 (init)
+    $default  reduce using rule 34 (init)
 
-    init  go to state 76
+    init  go to state 75
 
 
 State 52
@@ -799,13 +804,6 @@ State 52
 
 
 State 53
-
-   27 statement: UNARY ID PUNTO_COMA •
-
-    $default  reduce using rule 27 (statement)
-
-
-State 54
 
     8 body: DO INICIO body • FIN WHILE PARENT_A condition PARENT_C PUNTO_COMA
    10     | body • body
@@ -822,7 +820,7 @@ State 54
     SCANF   shift, and go to state 21
     VOID    shift, and go to state 8
     WHILE   shift, and go to state 22
-    FIN     shift, and go to state 77
+    FIN     shift, and go to state 76
     ID      shift, and go to state 23
 
     body       go to state 49
@@ -830,389 +828,413 @@ State 54
     statement  go to state 26
 
 
-State 55
+State 54
 
     6 body: FOR PARENT_A statement • PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
 
-    PUNTO_COMA  shift, and go to state 78
+    PUNTO_COMA  shift, and go to state 77
 
 
-State 56
+State 55
 
-   50 value: CHARACTER •
-
-    $default  reduce using rule 50 (value)
-
-
-State 57
-
-   53 value: STRING •
+   53 value: CHARACTER •
 
     $default  reduce using rule 53 (value)
 
 
-State 58
+State 56
 
-   51 value: FLOAT_NUMBER •
+   56 value: STRING •
 
-    $default  reduce using rule 51 (value)
-
-
-State 59
-
-   52 value: INTEGER_NUMBER •
-
-    $default  reduce using rule 52 (value)
+    $default  reduce using rule 56 (value)
 
 
-State 60
+State 57
 
-   54 value: ID •
+   54 value: FLOAT_NUMBER •
 
     $default  reduce using rule 54 (value)
 
 
-State 61
+State 58
 
-   21 condition: TRUE •
+   55 value: INTEGER •
 
-    $default  reduce using rule 21 (condition)
+    $default  reduce using rule 55 (value)
 
 
-State 62
+State 59
 
-   22 condition: FALSE •
+   57 value: ID •
+
+    $default  reduce using rule 57 (value)
+
+
+State 60
+
+   22 condition: TRUE •
 
     $default  reduce using rule 22 (condition)
 
 
-State 63
+State 61
+
+   23 condition: FALSE •
+
+    $default  reduce using rule 23 (condition)
+
+
+State 62
 
     5 body: IF PARENT_A condition • PARENT_C INICIO body FIN else
 
-    PARENT_C  shift, and go to state 79
+    PARENT_C  shift, and go to state 78
 
 
-State 64
+State 63
 
    20 condition: value • relational value
+   21          | value • logic value
 
+    OP_O            shift, and go to state 79
     OP_MAYOR_IGUAL  shift, and go to state 36
     OP_MAYOR        shift, and go to state 37
     OP_MENOR_IGUAL  shift, and go to state 38
     OP_MENOR        shift, and go to state 39
     OP_DIST         shift, and go to state 40
+    OP_Y            shift, and go to state 80
     OP_IGUAL        shift, and go to state 41
 
-    relational  go to state 80
+    relational  go to state 81
+    logic       go to state 82
+
+
+State 64
+
+   11 body: PRINTF PARENT_A STRING • COMA ID PARENT_C PUNTO_COMA
+   12     | PRINTF PARENT_A STRING • PARENT_C PUNTO_COMA
+
+    PARENT_C  shift, and go to state 83
+    COMA      shift, and go to state 84
 
 
 State 65
 
-   11 body: PRINTF PARENT_A STRING • PARENT_C PUNTO_COMA
-   12     | PRINTF PARENT_A STRING • COMA ID PARENT_C PUNTO_COMA
+   13 body: SCANF PARENT_A STRING • COMA ID PARENT_C PUNTO_COMA
 
-    PARENT_C  shift, and go to state 81
-    COMA      shift, and go to state 82
+    COMA  shift, and go to state 85
 
 
 State 66
 
-   13 body: SCANF PARENT_A STRING • COMA '&' ID PARENT_C PUNTO_COMA
+    7 body: WHILE PARENT_A condition • PARENT_C INICIO body FIN PUNTO_COMA
 
-    COMA  shift, and go to state 83
+    PARENT_C  shift, and go to state 86
 
 
 State 67
 
-    7 body: WHILE PARENT_A condition • PARENT_C INICIO body FIN
+   26 statement: ID asignators expression •
+   40 expression: expression • arithmetics expression
 
-    PARENT_C  shift, and go to state 84
+    OP_MULT  shift, and go to state 87
+    OP_SUMA  shift, and go to state 88
+    OP_SUS   shift, and go to state 89
+    OP_DIV   shift, and go to state 90
+    OP_MOD   shift, and go to state 91
+
+    $default  reduce using rule 26 (statement)
+
+    arithmetics  go to state 92
 
 
 State 68
 
-   26 statement: ID UNARY PUNTO_COMA •
+   25 statement: ID asignators value •
+   41 expression: value •
 
-    $default  reduce using rule 26 (statement)
+    PUNTO_COMA  reduce using rule 25 (statement)
+    PUNTO_COMA  [reduce using rule 41 (expression)]
+    PARENT_C    reduce using rule 25 (statement)
+    PARENT_C    [reduce using rule 41 (expression)]
+    $default    reduce using rule 41 (expression)
 
 
 State 69
 
-   24 statement: ID asignators value • PUNTO_COMA
+   27 statement: ID relational expression •
+   40 expression: expression • arithmetics expression
 
-    PUNTO_COMA  shift, and go to state 85
+    OP_MULT  shift, and go to state 87
+    OP_SUMA  shift, and go to state 88
+    OP_SUS   shift, and go to state 89
+    OP_DIV   shift, and go to state 90
+    OP_MOD   shift, and go to state 91
+
+    $default  reduce using rule 27 (statement)
+
+    arithmetics  go to state 92
 
 
 State 70
 
-   25 statement: ID relational expression • PUNTO_COMA
-   37 expression: expression • arithmetics expression
-   38           | expression • logic expression
+   41 expression: value •
 
-    OP_MULT     shift, and go to state 86
-    OP_SUMA     shift, and go to state 87
-    OP_SUS      shift, and go to state 88
-    OP_DIV      shift, and go to state 89
-    PUNTO_COMA  shift, and go to state 90
-    OP_O        shift, and go to state 91
-    OP_Y        shift, and go to state 92
-
-    arithmetics  go to state 93
-    logic        go to state 94
+    $default  reduce using rule 41 (expression)
 
 
 State 71
 
-   39 expression: value •
+   60 return: RETURN value • PUNTO_COMA
 
-    $default  reduce using rule 39 (expression)
+    PUNTO_COMA  shift, and go to state 93
 
 
 State 72
-
-   57 return: RETURN value • PUNTO_COMA
-
-    PUNTO_COMA  shift, and go to state 95
-
-
-State 73
 
     1 program: headers datatype MAIN PARENT_A PARENT_C INICIO body return FIN •
 
     $default  reduce using rule 1 (program)
 
 
+State 73
+
+   31 init: OP_ASIG • value
+   32     | OP_ASIG • expression
+
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+
+    expression  go to state 94
+    value       go to state 95
+
+
 State 74
 
-   29 init: OP_ASIG • value
+   33 init: COMA • ID init
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-
-    value  go to state 96
+    ID  shift, and go to state 96
 
 
 State 75
 
-   30 init: COMA • ID init
-
-    ID  shift, and go to state 97
-
-
-State 76
-
-   23 statement: datatype ID init • PUNTO_COMA
-
-    PUNTO_COMA  shift, and go to state 98
-
-
-State 77
-
-    8 body: DO INICIO body FIN • WHILE PARENT_A condition PARENT_C PUNTO_COMA
-
-    WHILE  shift, and go to state 99
-
-
-State 78
-
-    6 body: FOR PARENT_A statement PUNTO_COMA • condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
-
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-    TRUE            shift, and go to state 61
-    FALSE           shift, and go to state 62
-
-    condition  go to state 100
-    value      go to state 64
-
-
-State 79
-
-    5 body: IF PARENT_A condition PARENT_C • INICIO body FIN else
-
-    INICIO  shift, and go to state 101
-
-
-State 80
-
-   20 condition: value relational • value
-
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-
-    value  go to state 102
-
-
-State 81
-
-   11 body: PRINTF PARENT_A STRING PARENT_C • PUNTO_COMA
-
-    PUNTO_COMA  shift, and go to state 103
-
-
-State 82
-
-   12 body: PRINTF PARENT_A STRING COMA • ID PARENT_C PUNTO_COMA
-
-    ID  shift, and go to state 104
-
-
-State 83
-
-   13 body: SCANF PARENT_A STRING COMA • '&' ID PARENT_C PUNTO_COMA
-
-    '&'  shift, and go to state 105
-
-
-State 84
-
-    7 body: WHILE PARENT_A condition PARENT_C • INICIO body FIN
-
-    INICIO  shift, and go to state 106
-
-
-State 85
-
-   24 statement: ID asignators value PUNTO_COMA •
+   24 statement: datatype ID init •
 
     $default  reduce using rule 24 (statement)
 
 
+State 76
+
+    8 body: DO INICIO body FIN • WHILE PARENT_A condition PARENT_C PUNTO_COMA
+
+    WHILE  shift, and go to state 97
+
+
+State 77
+
+    6 body: FOR PARENT_A statement PUNTO_COMA • condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
+
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+    TRUE          shift, and go to state 60
+    FALSE         shift, and go to state 61
+
+    condition  go to state 98
+    value      go to state 63
+
+
+State 78
+
+    5 body: IF PARENT_A condition PARENT_C • INICIO body FIN else
+
+    INICIO  shift, and go to state 99
+
+
+State 79
+
+   58 logic: OP_O •
+
+    $default  reduce using rule 58 (logic)
+
+
+State 80
+
+   59 logic: OP_Y •
+
+    $default  reduce using rule 59 (logic)
+
+
+State 81
+
+   20 condition: value relational • value
+
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+
+    value  go to state 100
+
+
+State 82
+
+   21 condition: value logic • value
+
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+
+    value  go to state 101
+
+
+State 83
+
+   12 body: PRINTF PARENT_A STRING PARENT_C • PUNTO_COMA
+
+    PUNTO_COMA  shift, and go to state 102
+
+
+State 84
+
+   11 body: PRINTF PARENT_A STRING COMA • ID PARENT_C PUNTO_COMA
+
+    ID  shift, and go to state 103
+
+
+State 85
+
+   13 body: SCANF PARENT_A STRING COMA • ID PARENT_C PUNTO_COMA
+
+    ID  shift, and go to state 104
+
+
 State 86
 
-   43 arithmetics: OP_MULT •
+    7 body: WHILE PARENT_A condition PARENT_C • INICIO body FIN PUNTO_COMA
 
-    $default  reduce using rule 43 (arithmetics)
+    INICIO  shift, and go to state 105
 
 
 State 87
 
-   40 arithmetics: OP_SUMA •
+   46 arithmetics: OP_MULT •
 
-    $default  reduce using rule 40 (arithmetics)
+    $default  reduce using rule 46 (arithmetics)
 
 
 State 88
 
-   41 arithmetics: OP_SUS •
-
-    $default  reduce using rule 41 (arithmetics)
-
-
-State 89
-
-   42 arithmetics: OP_DIV •
+   42 arithmetics: OP_SUMA •
 
     $default  reduce using rule 42 (arithmetics)
 
 
+State 89
+
+   43 arithmetics: OP_SUS •
+
+    $default  reduce using rule 43 (arithmetics)
+
+
 State 90
 
-   25 statement: ID relational expression PUNTO_COMA •
+   44 arithmetics: OP_DIV •
 
-    $default  reduce using rule 25 (statement)
+    $default  reduce using rule 44 (arithmetics)
 
 
 State 91
 
-   55 logic: OP_O •
+   45 arithmetics: OP_MOD •
 
-    $default  reduce using rule 55 (logic)
+    $default  reduce using rule 45 (arithmetics)
 
 
 State 92
 
-   56 logic: OP_Y •
+   40 expression: expression arithmetics • expression
 
-    $default  reduce using rule 56 (logic)
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+
+    expression  go to state 106
+    value       go to state 70
 
 
 State 93
 
-   37 expression: expression arithmetics • expression
+   60 return: RETURN value PUNTO_COMA •
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-
-    expression  go to state 107
-    value       go to state 71
+    $default  reduce using rule 60 (return)
 
 
 State 94
 
-   38 expression: expression logic • expression
+   32 init: OP_ASIG expression •
+   40 expression: expression • arithmetics expression
 
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
+    OP_MULT  shift, and go to state 87
+    OP_SUMA  shift, and go to state 88
+    OP_SUS   shift, and go to state 89
+    OP_DIV   shift, and go to state 90
+    OP_MOD   shift, and go to state 91
 
-    expression  go to state 108
-    value       go to state 71
+    $default  reduce using rule 32 (init)
+
+    arithmetics  go to state 92
 
 
 State 95
 
-   57 return: RETURN value PUNTO_COMA •
+   31 init: OP_ASIG value •
+   41 expression: value •
 
-    $default  reduce using rule 57 (return)
+    PUNTO_COMA  reduce using rule 31 (init)
+    PUNTO_COMA  [reduce using rule 41 (expression)]
+    PARENT_C    reduce using rule 31 (init)
+    PARENT_C    [reduce using rule 41 (expression)]
+    $default    reduce using rule 41 (expression)
 
 
 State 96
 
-   29 init: OP_ASIG value •
+   33 init: COMA ID • init
 
-    $default  reduce using rule 29 (init)
+    OP_ASIG  shift, and go to state 73
+    COMA     shift, and go to state 74
+
+    $default  reduce using rule 34 (init)
+
+    init  go to state 107
 
 
 State 97
 
-   30 init: COMA ID • init
+    8 body: DO INICIO body FIN WHILE • PARENT_A condition PARENT_C PUNTO_COMA
 
-    OP_ASIG  shift, and go to state 74
-    COMA     shift, and go to state 75
-
-    $default  reduce using rule 31 (init)
-
-    init  go to state 109
+    PARENT_A  shift, and go to state 108
 
 
 State 98
 
-   23 statement: datatype ID init PUNTO_COMA •
+    6 body: FOR PARENT_A statement PUNTO_COMA condition • PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
 
-    $default  reduce using rule 23 (statement)
+    PUNTO_COMA  shift, and go to state 109
 
 
 State 99
-
-    8 body: DO INICIO body FIN WHILE • PARENT_A condition PARENT_C PUNTO_COMA
-
-    PARENT_A  shift, and go to state 110
-
-
-State 100
-
-    6 body: FOR PARENT_A statement PUNTO_COMA condition • PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
-
-    PUNTO_COMA  shift, and go to state 111
-
-
-State 101
 
     5 body: IF PARENT_A condition PARENT_C INICIO • body FIN else
 
@@ -1230,42 +1252,49 @@ State 101
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    body       go to state 112
+    body       go to state 110
     datatype   go to state 25
     statement  go to state 26
 
 
-State 102
+State 100
 
    20 condition: value relational value •
 
     $default  reduce using rule 20 (condition)
 
 
+State 101
+
+   21 condition: value logic value •
+
+    $default  reduce using rule 21 (condition)
+
+
+State 102
+
+   12 body: PRINTF PARENT_A STRING PARENT_C PUNTO_COMA •
+
+    $default  reduce using rule 12 (body)
+
+
 State 103
 
-   11 body: PRINTF PARENT_A STRING PARENT_C PUNTO_COMA •
+   11 body: PRINTF PARENT_A STRING COMA ID • PARENT_C PUNTO_COMA
 
-    $default  reduce using rule 11 (body)
+    PARENT_C  shift, and go to state 111
 
 
 State 104
 
-   12 body: PRINTF PARENT_A STRING COMA ID • PARENT_C PUNTO_COMA
+   13 body: SCANF PARENT_A STRING COMA ID • PARENT_C PUNTO_COMA
 
-    PARENT_C  shift, and go to state 113
+    PARENT_C  shift, and go to state 112
 
 
 State 105
 
-   13 body: SCANF PARENT_A STRING COMA '&' • ID PARENT_C PUNTO_COMA
-
-    ID  shift, and go to state 114
-
-
-State 106
-
-    7 body: WHILE PARENT_A condition PARENT_C INICIO • body FIN
+    7 body: WHILE PARENT_A condition PARENT_C INICIO • body FIN PUNTO_COMA
 
     error   shift, and go to state 15
     UNARY   shift, and go to state 16
@@ -1281,85 +1310,56 @@ State 106
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    body       go to state 115
+    body       go to state 113
     datatype   go to state 25
     statement  go to state 26
 
 
+State 106
+
+   40 expression: expression • arithmetics expression
+   40           | expression arithmetics expression •
+
+    OP_MULT  shift, and go to state 87
+    OP_SUMA  shift, and go to state 88
+    OP_SUS   shift, and go to state 89
+    OP_DIV   shift, and go to state 90
+    OP_MOD   shift, and go to state 91
+
+    OP_MULT   [reduce using rule 40 (expression)]
+    OP_SUMA   [reduce using rule 40 (expression)]
+    OP_SUS    [reduce using rule 40 (expression)]
+    OP_DIV    [reduce using rule 40 (expression)]
+    OP_MOD    [reduce using rule 40 (expression)]
+    $default  reduce using rule 40 (expression)
+
+    arithmetics  go to state 92
+
+
 State 107
 
-   37 expression: expression • arithmetics expression
-   37           | expression arithmetics expression •
-   38           | expression • logic expression
+   33 init: COMA ID init •
 
-    OP_MULT  shift, and go to state 86
-    OP_SUMA  shift, and go to state 87
-    OP_SUS   shift, and go to state 88
-    OP_DIV   shift, and go to state 89
-    OP_O     shift, and go to state 91
-    OP_Y     shift, and go to state 92
-
-    OP_MULT   [reduce using rule 37 (expression)]
-    OP_SUMA   [reduce using rule 37 (expression)]
-    OP_SUS    [reduce using rule 37 (expression)]
-    OP_DIV    [reduce using rule 37 (expression)]
-    OP_O      [reduce using rule 37 (expression)]
-    OP_Y      [reduce using rule 37 (expression)]
-    $default  reduce using rule 37 (expression)
-
-    arithmetics  go to state 93
-    logic        go to state 94
+    $default  reduce using rule 33 (init)
 
 
 State 108
 
-   37 expression: expression • arithmetics expression
-   38           | expression • logic expression
-   38           | expression logic expression •
+    8 body: DO INICIO body FIN WHILE PARENT_A • condition PARENT_C PUNTO_COMA
 
-    OP_MULT  shift, and go to state 86
-    OP_SUMA  shift, and go to state 87
-    OP_SUS   shift, and go to state 88
-    OP_DIV   shift, and go to state 89
-    OP_O     shift, and go to state 91
-    OP_Y     shift, and go to state 92
+    CHARACTER     shift, and go to state 55
+    STRING        shift, and go to state 56
+    FLOAT_NUMBER  shift, and go to state 57
+    INTEGER       shift, and go to state 58
+    ID            shift, and go to state 59
+    TRUE          shift, and go to state 60
+    FALSE         shift, and go to state 61
 
-    OP_MULT   [reduce using rule 38 (expression)]
-    OP_SUMA   [reduce using rule 38 (expression)]
-    OP_SUS    [reduce using rule 38 (expression)]
-    OP_DIV    [reduce using rule 38 (expression)]
-    OP_O      [reduce using rule 38 (expression)]
-    OP_Y      [reduce using rule 38 (expression)]
-    $default  reduce using rule 38 (expression)
-
-    arithmetics  go to state 93
-    logic        go to state 94
+    condition  go to state 114
+    value      go to state 63
 
 
 State 109
-
-   30 init: COMA ID init •
-
-    $default  reduce using rule 30 (init)
-
-
-State 110
-
-    8 body: DO INICIO body FIN WHILE PARENT_A • condition PARENT_C PUNTO_COMA
-
-    CHARACTER       shift, and go to state 56
-    STRING          shift, and go to state 57
-    FLOAT_NUMBER    shift, and go to state 58
-    INTEGER_NUMBER  shift, and go to state 59
-    ID              shift, and go to state 60
-    TRUE            shift, and go to state 61
-    FALSE           shift, and go to state 62
-
-    condition  go to state 116
-    value      go to state 64
-
-
-State 111
 
     6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA • statement PARENT_C INICIO body FIN PUNTO_COMA
 
@@ -1372,10 +1372,10 @@ State 111
     ID     shift, and go to state 23
 
     datatype   go to state 25
-    statement  go to state 117
+    statement  go to state 115
 
 
-State 112
+State 110
 
     5 body: IF PARENT_A condition PARENT_C INICIO body • FIN else
    10     | body • body
@@ -1392,7 +1392,7 @@ State 112
     SCANF   shift, and go to state 21
     VOID    shift, and go to state 8
     WHILE   shift, and go to state 22
-    FIN     shift, and go to state 118
+    FIN     shift, and go to state 116
     ID      shift, and go to state 23
 
     body       go to state 49
@@ -1400,23 +1400,23 @@ State 112
     statement  go to state 26
 
 
+State 111
+
+   11 body: PRINTF PARENT_A STRING COMA ID PARENT_C • PUNTO_COMA
+
+    PUNTO_COMA  shift, and go to state 117
+
+
+State 112
+
+   13 body: SCANF PARENT_A STRING COMA ID PARENT_C • PUNTO_COMA
+
+    PUNTO_COMA  shift, and go to state 118
+
+
 State 113
 
-   12 body: PRINTF PARENT_A STRING COMA ID PARENT_C • PUNTO_COMA
-
-    PUNTO_COMA  shift, and go to state 119
-
-
-State 114
-
-   13 body: SCANF PARENT_A STRING COMA '&' ID • PARENT_C PUNTO_COMA
-
-    PARENT_C  shift, and go to state 120
-
-
-State 115
-
-    7 body: WHILE PARENT_A condition PARENT_C INICIO body • FIN
+    7 body: WHILE PARENT_A condition PARENT_C INICIO body • FIN PUNTO_COMA
    10     | body • body
 
     error   shift, and go to state 15
@@ -1431,7 +1431,7 @@ State 115
     SCANF   shift, and go to state 21
     VOID    shift, and go to state 8
     WHILE   shift, and go to state 22
-    FIN     shift, and go to state 121
+    FIN     shift, and go to state 119
     ID      shift, and go to state 23
 
     body       go to state 49
@@ -1439,95 +1439,95 @@ State 115
     statement  go to state 26
 
 
-State 116
+State 114
 
     8 body: DO INICIO body FIN WHILE PARENT_A condition • PARENT_C PUNTO_COMA
 
-    PARENT_C  shift, and go to state 122
+    PARENT_C  shift, and go to state 120
+
+
+State 115
+
+    6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement • PARENT_C INICIO body FIN PUNTO_COMA
+
+    PARENT_C  shift, and go to state 121
+
+
+State 116
+
+    5 body: IF PARENT_A condition PARENT_C INICIO body FIN • else
+
+    ELSE  shift, and go to state 122
+
+    $default  reduce using rule 15 (else)
+
+    else  go to state 123
 
 
 State 117
 
-    6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement • PARENT_C INICIO body FIN PUNTO_COMA
+   11 body: PRINTF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA •
 
-    PARENT_C  shift, and go to state 123
+    $default  reduce using rule 11 (body)
 
 
 State 118
 
-    5 body: IF PARENT_A condition PARENT_C INICIO body FIN • else
+   13 body: SCANF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA •
 
-    ELSE  shift, and go to state 124
-
-    $default  reduce using rule 15 (else)
-
-    else  go to state 125
+    $default  reduce using rule 13 (body)
 
 
 State 119
 
-   12 body: PRINTF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA •
+    7 body: WHILE PARENT_A condition PARENT_C INICIO body FIN • PUNTO_COMA
 
-    $default  reduce using rule 12 (body)
+    PUNTO_COMA  shift, and go to state 124
 
 
 State 120
 
-   13 body: SCANF PARENT_A STRING COMA '&' ID PARENT_C • PUNTO_COMA
+    8 body: DO INICIO body FIN WHILE PARENT_A condition PARENT_C • PUNTO_COMA
 
-    PUNTO_COMA  shift, and go to state 126
+    PUNTO_COMA  shift, and go to state 125
 
 
 State 121
 
-    7 body: WHILE PARENT_A condition PARENT_C INICIO body FIN •
+    6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C • INICIO body FIN PUNTO_COMA
 
-    $default  reduce using rule 7 (body)
+    INICIO  shift, and go to state 126
 
 
 State 122
 
-    8 body: DO INICIO body FIN WHILE PARENT_A condition PARENT_C • PUNTO_COMA
+   14 else: ELSE • INICIO body FIN
 
-    PUNTO_COMA  shift, and go to state 127
+    INICIO  shift, and go to state 127
 
 
 State 123
-
-    6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C • INICIO body FIN PUNTO_COMA
-
-    INICIO  shift, and go to state 128
-
-
-State 124
-
-   14 else: ELSE • INICIO body FIN
-
-    INICIO  shift, and go to state 129
-
-
-State 125
 
     5 body: IF PARENT_A condition PARENT_C INICIO body FIN else •
 
     $default  reduce using rule 5 (body)
 
 
-State 126
+State 124
 
-   13 body: SCANF PARENT_A STRING COMA '&' ID PARENT_C PUNTO_COMA •
+    7 body: WHILE PARENT_A condition PARENT_C INICIO body FIN PUNTO_COMA •
 
-    $default  reduce using rule 13 (body)
+    $default  reduce using rule 7 (body)
 
 
-State 127
+State 125
 
     8 body: DO INICIO body FIN WHILE PARENT_A condition PARENT_C PUNTO_COMA •
 
     $default  reduce using rule 8 (body)
 
 
-State 128
+State 126
 
     6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO • body FIN PUNTO_COMA
 
@@ -1545,12 +1545,12 @@ State 128
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    body       go to state 130
+    body       go to state 128
     datatype   go to state 25
     statement  go to state 26
 
 
-State 129
+State 127
 
    14 else: ELSE INICIO • body FIN
 
@@ -1568,12 +1568,12 @@ State 129
     WHILE   shift, and go to state 22
     ID      shift, and go to state 23
 
-    body       go to state 131
+    body       go to state 129
     datatype   go to state 25
     statement  go to state 26
 
 
-State 130
+State 128
 
     6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body • FIN PUNTO_COMA
    10     | body • body
@@ -1590,7 +1590,7 @@ State 130
     SCANF   shift, and go to state 21
     VOID    shift, and go to state 8
     WHILE   shift, and go to state 22
-    FIN     shift, and go to state 132
+    FIN     shift, and go to state 130
     ID      shift, and go to state 23
 
     body       go to state 49
@@ -1598,7 +1598,7 @@ State 130
     statement  go to state 26
 
 
-State 131
+State 129
 
    10 body: body • body
    14 else: ELSE INICIO body • FIN
@@ -1615,7 +1615,7 @@ State 131
     SCANF   shift, and go to state 21
     VOID    shift, and go to state 8
     WHILE   shift, and go to state 22
-    FIN     shift, and go to state 133
+    FIN     shift, and go to state 131
     ID      shift, and go to state 23
 
     body       go to state 49
@@ -1623,21 +1623,21 @@ State 131
     statement  go to state 26
 
 
-State 132
+State 130
 
     6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN • PUNTO_COMA
 
-    PUNTO_COMA  shift, and go to state 134
+    PUNTO_COMA  shift, and go to state 132
 
 
-State 133
+State 131
 
    14 else: ELSE INICIO body FIN •
 
     $default  reduce using rule 14 (else)
 
 
-State 134
+State 132
 
     6 body: FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA •
 

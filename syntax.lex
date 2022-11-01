@@ -1,10 +1,11 @@
+%option yylineno
+
 %{
 // Definitons, can be accessed inside yylex() and main()
 	#include "y.tab.h"
 	int countn=0;
 %}
 
-%option yylineno
 
 /* regular definitions */
 D		[0-9]
@@ -13,7 +14,7 @@ unary   "++"|"--"
 SYM     [$@:!#]
 SPACE   " "
 EXPO    [Ee][\+\-]?([2-9]|([1-9]D+))
-EN      [\+\-]?[1-9]{D}*{EXPO}?
+EN      [\+\-]?{D}*{EXPO}?
 DEC     \.{D}+
 RE      [\+\-]?([1-9]{D}*|0){DEC}{EXPO}?[lf]?
 CA      \".*\"
@@ -22,7 +23,7 @@ VAR     ({L}|_)({D}|{L}|_)*
 WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*)
 
 %%
-[\n]			{ yylineno = yylineno + 1;} // Count the number of lines 
+[ \t\n]			{ ; } // Count the number of lines 
 "main"          {return(MAIN);}
 "auto"			{return(AUTO);}
 "break"			{return(BREAK);}
@@ -86,10 +87,10 @@ WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*
 "&&"            {return(OP_Y);}
 "=="			{return(OP_IGUAL);}
 {unary}         {return(UNARY);}
-{CH}			{return(CHAR);}
+{CH}			{return(CHARACTER);}
 {CA}			{return(STRING);}
-{RE}			{return(FLOAT);}
-{EN}			{return(INT);}
+{RE}			{return(FLOAT_NUMBER);}
+{EN}			{return(INTEGER);}
 {VAR}			{return(ID);}
 [ \t]*          { ; } // Ignore tabs
 \/\/.*          { ; } // Ignore single line comments 

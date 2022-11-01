@@ -114,7 +114,7 @@ extern int yydebug;
     CHARACTER = 315,               /* CHARACTER  */
     STRING = 316,                  /* STRING  */
     FLOAT_NUMBER = 317,            /* FLOAT_NUMBER  */
-    INTEGER_NUMBER = 318,          /* INTEGER_NUMBER  */
+    INTEGER = 318,                 /* INTEGER  */
     ID = 319,                      /* ID  */
     TRUE = 320,                    /* TRUE  */
     FALSE = 321,                   /* FALSE  */
@@ -190,7 +190,7 @@ extern int yydebug;
 #define CHARACTER 315
 #define STRING 316
 #define FLOAT_NUMBER 317
-#define INTEGER_NUMBER 318
+#define INTEGER 318
 #define ID 319
 #define TRUE 320
 #define FALSE 321
