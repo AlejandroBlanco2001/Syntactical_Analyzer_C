@@ -77,13 +77,15 @@
     
 	int yylex();
 	int yywrap();
+	int errores = 0;
+
 
 	extern int yylineno;
 	extern char *yytext;
 	extern FILE *fp;
 	extern int countn;
 
-#line 87 "y.tab.c"
+#line 89 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -770,13 +772,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    26,    26,    30,    31,    32,    36,    37,    38,    39,
-      40,    41,    42,    43,    44,    48,    49,    53,    54,    55,
-      56,    60,    61,    62,    63,    67,    68,    69,    70,    71,
-      72,    73,    77,    78,    79,    80,    84,    85,    86,    87,
-      88,    92,    93,    97,    98,    99,   100,   101,   105,   106,
-     107,   108,   109,   110,   114,   115,   116,   117,   118,   122,
-     123,   127,   128
+       0,    28,    28,    32,    33,    34,    38,    39,    40,    41,
+      42,    43,    44,    45,    46,    50,    51,    55,    56,    57,
+      58,    62,    63,    64,    65,    69,    70,    71,    72,    73,
+      74,    75,    79,    80,    81,    82,    86,    87,    88,    89,
+      90,    94,    95,    99,   100,   101,   102,   103,   107,   108,
+     109,   110,   111,   112,   116,   117,   118,   119,   120,   124,
+     125,   129,   130
 };
 #endif
 
@@ -1456,7 +1458,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1460 "y.tab.c"
+#line 1462 "y.tab.c"
 
       default: break;
     }
@@ -1649,7 +1651,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 131 "syntactic.y"
+#line 133 "syntactic.y"
 
 
 int main(int argc, char *argv[])
@@ -1658,13 +1660,17 @@ int main(int argc, char *argv[])
 	printf("Prueba con el archivo de entrada \n");
 	if(!yyparse())
 	{
-		printf("Bien \n");
+		printf("Analisis completo\n");
+	}
+	if(errores == 0){
+		printf("Bien");
 	}
 	fclose(yyin);
 	return 0;
 }
 
 void yyerror(const char *msg){
-	fprintf(stderr, "Error sintactico en la línea número: %d \n", yylineno-1);
+	errores = errores + 1;
+	fprintf(stderr, "Error sintactico en la línea número: %d \n", countn);
 }
 

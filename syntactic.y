@@ -7,6 +7,8 @@
     
 	int yylex();
 	int yywrap();
+	int errores = 0;
+
 
 	extern int yylineno;
 	extern char *yytext;
@@ -73,7 +75,7 @@ statement: datatype ID init
 | error
 ;
 
-// Asign of the variables
+// Asign of the variables 
 init: OP_ASIG value
 | OP_ASIG expression
 | COMA ID init
@@ -136,13 +138,17 @@ int main(int argc, char *argv[])
 	printf("Prueba con el archivo de entrada \n");
 	if(!yyparse())
 	{
-		printf("Bien \n");
+		printf("Analisis completo\n");
+	}
+	if(errores == 0){
+		printf("Bien");
 	}
 	fclose(yyin);
 	return 0;
 }
 
 void yyerror(const char *msg){
-	fprintf(stderr, "Error sintactico en la línea número: %d \n", yylineno-1);
+	errores = errores + 1;
+	fprintf(stderr, "Error sintactico en la línea número: %d \n", countn);
 }
 

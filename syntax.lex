@@ -23,7 +23,7 @@ VAR     ({L}|_)({D}|{L}|_)*
 WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*)
 
 %%
-[ \t\n]			{ ; } // Count the number of lines 
+[ \n]			{ countn = countn + 1; } 
 "main"          {return(MAIN);}
 "auto"			{return(AUTO);}
 "break"			{return(BREAK);}
