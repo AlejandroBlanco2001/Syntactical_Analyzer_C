@@ -25,6 +25,7 @@
 
 %%
 
+// Start of the grammar 
 program: headers datatype MAIN PARENT_A PARENT_C INICIO body return FIN
 ;
 
@@ -141,7 +142,7 @@ int main(int argc, char *argv[])
 		printf("Analisis completo\n");
 	}
 	if(errores == 0){
-		printf("Bien");
+		printf("Resultado: Sin errores sintacticos");
 	}
 	fclose(yyin);
 	return 0;

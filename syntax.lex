@@ -23,7 +23,7 @@ VAR     ({L}|_)({D}|{L}|_)*
 WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*)
 
 %%
-[ \n]			{ countn = countn + 1; } 
+[\n]			{ countn = countn + 1; } 
 "main"          {return(MAIN);}
 "auto"			{return(AUTO);}
 "break"			{return(BREAK);}

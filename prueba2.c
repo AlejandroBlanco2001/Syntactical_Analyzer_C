@@ -1,4 +1,5 @@
 #include <stdio.h>
+// COMENTARIO DE PRUEBA
 void main()
 {	int i,x;
 	float media,media2;
@@ -8,6 +9,7 @@ void main()
 		scanf("%d",x);
 	media+=x;
 	};
+	// ME METI EN LA MITAD
 	media /= 10;
 	printf ("%f",media);
 	i = 0;
@@ -20,6 +22,7 @@ void main()
 	media2 = media2/10;
 	printf ("%f",media);
 	i = 0;
+	// UNO MÁS POR SI LAS MOSCAS 
 	media2 = 0;
 	do		{scanf("%d",x);
 			i++;
