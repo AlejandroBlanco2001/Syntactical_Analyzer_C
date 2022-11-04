@@ -37,18 +37,33 @@ headers: headers headers
 
 // Body of the code ( Ifs, fors, whiles...)  
 body: IF PARENT_A condition PARENT_C INICIO body FIN else
+| IF PARENT_A condition PARENT_C statement PUNTO_COMA else
+| FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN
 | FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C INICIO body FIN PUNTO_COMA
+| FOR PARENT_A statement PUNTO_COMA condition PUNTO_COMA statement PARENT_C statement PUNTO_COMA
+| WHILE PARENT_A condition PARENT_C INICIO body FIN
 | WHILE PARENT_A condition PARENT_C INICIO body FIN PUNTO_COMA
+| WHILE PARENT_A condition PARENT_C statement PUNTO_COMA
 | DO INICIO body FIN WHILE PARENT_A condition PARENT_C PUNTO_COMA
+| DO statement PUNTO_COMA WHILE PARENT_A condition PARENT_C PUNTO_COMA
 | statement PUNTO_COMA  
 | body body
-| PRINTF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
+| PRINTF PARENT_A STRING moreParams PARENT_C PUNTO_COMA
 | PRINTF PARENT_A STRING PARENT_C PUNTO_COMA 
 | SCANF PARENT_A STRING COMA ID PARENT_C PUNTO_COMA
+| error
+;
+
+// Parameters of a function
+moreParams: COMA STRING moreParams
+| COMA ID moreParams
+| COMA expression moreParams
+|
 ;
 
 // Else statement 
 else: ELSE INICIO body FIN
+| ELSE statement PUNTO_COMA 
 |
 ;
 
@@ -60,8 +75,8 @@ datatype: CHAR
 ;
 
 // Conditions 
-condition: value relational value
-| value logic value
+condition: expression relational expression
+| condition logic condition
 | TRUE
 | FALSE
 ;
@@ -69,6 +84,7 @@ condition: value relational value
 // Lines of the code
 statement: datatype ID init 
 | ID asignators value
+| ID asignators ID
 | ID asignators expression 
 | ID relational expression 
 | ID UNARY 
@@ -150,6 +166,6 @@ int main(int argc, char *argv[])
 
 void yyerror(const char *msg){
 	errores = errores + 1;
-	fprintf(stderr, "Error sintactico en la línea número: %d \n", countn);
+	fprintf(stderr, "Error sintactico en la línea número: %d \n", yylineno);
 }
 

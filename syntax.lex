@@ -23,7 +23,7 @@ VAR     ({L}|_)({D}|{L}|_)*
 WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*)
 
 %%
-[\n]			{ countn = countn + 1; } 
+[ \t\n]			{ countn = countn + 1; } 
 "main"          {return(MAIN);}
 "auto"			{return(AUTO);}
 "break"			{return(BREAK);}
@@ -73,7 +73,7 @@ WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*
 ","             {return(COMA);}
 "{"             {return(INICIO);}
 "}"             {return(FIN);}
-"|"             {return(OP_O);}
+"||"             {return(OP_O);}
 "!"             {return(OP_NO);}
 "+="            {return(OP_INCRE_SUM);}
 "*="            {return(OP_INCRE_MULT);}
@@ -94,6 +94,8 @@ WR_VAR  ({D}+({D}|{L})+)|({D}+,[{D}{L}])|({SYM}{VAR})|({VAR}{SYM}+[{SYM}{D}{L}]*
 {VAR}			{return(ID);}
 [ \t]*          { ; } // Ignore tabs
 \/\/.*          { ; } // Ignore single line comments 
+\/\*.*(\n.*)*\*\/	{ ; } // Ignore multi line comments
+
 %%
 
 int yywrap() {
