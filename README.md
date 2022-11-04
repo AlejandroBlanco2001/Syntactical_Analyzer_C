@@ -1,7 +1,12 @@
-# Syntactic_Analyzer_C-
-Syntactic Analyzer for C in C made with Lex and YACC 
+# Grupo integrante
 
-## How to use it
+Por: Isaac Blanco, Camilo Céspedes
 
-You only need to execute the command `sh ejecturar.sh {path_of_the_file}` and press enter.
+## Como utilizar el analizador
 
+Dirigirse al directorio del proyecto y correr el comando `sh LAB02_Blanco_Cespedes.sh {ruta_archivo_a_probar}`. Al hacerlo, se analizará el texto dentro del archivo con la ruta especificada y se generará el archivo `y.output` con los contenidos del análisis. Ademas de mostrar en consola si encontro algun tipo de error 
+sintáctico durante el análisis.
+
+#### El archivo a analizar no debe necesariamente tener como extensión `.c`, sino también puede ser un archivo de texto de otro tipo, por ejemplo, `.txt`
+
+En algunos casos, cuando la linea no cuenta con la terminacion de un ";", el error se marca en la linea siguiente a este, debido al funcionamiento interno de YACC.

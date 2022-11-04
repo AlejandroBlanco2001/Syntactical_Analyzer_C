@@ -1,5 +1,4 @@
 // #include <stdio.h>
-
 int main()
 {
     int a, b, md, c;
@@ -20,7 +19,7 @@ int main()
 
     /*Calculo del máximo divisor de un numero */
     md = 0;
-    int $i = 1; // ERROR por definición de variable
+    int $i = 1; 
     while (i < a)
     {
         // printf("valor de %d\n", i);
