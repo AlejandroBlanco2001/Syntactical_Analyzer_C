@@ -9,7 +9,7 @@
 	int yywrap();
 	int errores = 0;
 
-
+	FILE *fo;
 	extern int yylineno;
 	extern char *yytext;
 	extern FILE *fp;
@@ -151,21 +151,23 @@ return: RETURN value PUNTO_COMA
 
 int main(int argc, char *argv[])
 {
+	fo = fopen("./salida.txt", "w");
 	yyin = fopen(argv[1], "r");
-	printf("Prueba con el archivo de entrada \n");
+	fprintf(fo, "Prueba con el archivo de entrada \n");
 	if(!yyparse())
 	{
-		printf("Analisis completo\n");
+		fprintf(fo, "Analisis completo\n");
 	}
 	if(errores == 0){
-		printf("Resultado: Sin errores sintacticos");
+		fprintf(fo, "Resultado: Sin errores sintacticos");
 	}
 	fclose(yyin);
+	fclose(fo);
 	return 0;
 }
 
 void yyerror(const char *msg){
 	errores = errores + 1;
-	fprintf(stderr, "Error sintactico en la línea número: %d \n", yylineno);
+	fprintf(fo, "Error sintactico en la línea número: %d \n", yylineno);
 }
 
